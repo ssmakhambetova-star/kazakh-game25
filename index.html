@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Түбір мен Туынды сөздер</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --success: #00b894;
+            --danger: #d63031;
+            --bg: #f0f2f5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a8c0ff, #3f2b96);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #2d3436;
+        }
+
+        .game-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 { color: var(--primary); margin-bottom: 1rem; }
+
+        .word-card {
+            font-size: 2rem;
+            font-weight: bold;
+            padding: 20px;
+            margin: 20px 0;
+            background: #f9f9f9;
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            min-height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        button {
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tubir-btn { background-color: #0984e3; }
+        .tubir-btn:hover { background-color: #74b9ff; }
+
+        .tuindy-btn { background-color: #e17055; }
+        .tuindy-btn:hover { background-color: #fab1a0; }
+
+        #score-board {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .feedback {
+            height: 30px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>Сөздерді ажырат</h1>
+    <p>Берілген сөз түбір ме әлде туынды ма?</p>
+    
+    <div id="word-display" class="word-card">Жүктелуде...</div>
+    
+    <div class="buttons-container">
+        <button class="tubir-btn" onclick="checkAnswer('түбір')">Түбір сөз</button>
+        <button class="tuindy-btn" onclick="checkAnswer('туынды')">Туынды сөз</button>
+    </div>
+
+    <div id="feedback" class="feedback"></div>
+    <div id="score-board">Ұпай: <span id="score">0</span></div>
+</div>
+
+<audio id="correct-sound" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+<audio id="wrong-sound" src="https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3"></audio>
+
+<script>
+    const words = [
+        { text: "Кітап", type: "түбір" },
+        { text: "Өнерпаз", type: "туынды" },
+        { text: "Сушы", type: "туынды" },
+        { text: "Мектеп", type: "түбір" },
+        { text: "Білім", type: "туынды" },
+        { text: "Оқулық", type: "туынды" },
+        { text: "Қала", type: "түбір" },
+        { text: "Жұмысшы", type: "туынды" },
+        { text: "Дос", type: "түбір" },
+        { text: "Сөйлем", type: "туынды" }
+    ];
+
+    let currentWordIndex = 0;
+    let score = 0;
+
+    const wordDisplay = document.getElementById('word-display');
+    const scoreDisplay = document.getElementById('score');
+    const feedbackDisplay = document.getElementById('feedback');
+    const correctSound = document.getElementById('correct-sound');
+    const wrongSound = document.getElementById('wrong-sound');
+
+    function loadWord() {
+        if (currentWordIndex < words.length) {
+            wordDisplay.innerText = words[currentWordIndex].text;
+            feedbackDisplay.innerText = "";
+        } else {
+            wordDisplay.innerText = "Ойын аяқталды!";
+            document.querySelector('.buttons-container').style.display = 'none';
+            feedbackDisplay.innerText = `Сіздің нәтижеңіз: ${score} / ${words.length}`;
+        }
+    }
+
+    function checkAnswer(userChoice) {
+        const correctAnswer = words[currentWordIndex].type;
+
+        if (userChoice === correctAnswer) {
+            score++;
+            scoreDisplay.innerText = score;
+            feedbackDisplay.innerText = "Дұрыс! ✅";
+            feedbackDisplay.style.color = "green";
+            correctSound.play();
+        } else {
+            feedbackDisplay.innerText = "Қате! ❌";
+            feedbackDisplay.style.color = "red";
+            wrongSound.play();
+        }
+
+        currentWordIndex++;
+        setTimeout(loadWord, 1000);
+    }
+
+    // Ойынды бастау
+    loadWord();
+</script>
+
+</body>
+</html>
