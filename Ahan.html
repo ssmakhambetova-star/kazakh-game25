@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шұғаның белгісі - Білім тесті</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+        
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        
+        .floating-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+            background: rgba(255, 0, 255, 0.1);
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+            background: rgba(0, 255, 255, 0.1);
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 20px) rotate(90deg); }
+            50% { transform: translate(0, 40px) rotate(180deg); }
+            75% { transform: translate(-20px, 20px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(16, 18, 27, 0.7);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            color: #00ffff;
+            font-size: 42px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            color: #a0a0ff;
+            font-size: 20px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(0, 20, 40, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00ffff;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #a0a0ff;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .instructions {
+            background: rgba(16, 18, 27, 0.7);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .instructions h2 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .instructions h2::before {
+            content: '📚';
+            font-size: 20px;
+        }
+        
+        .instructions p {
+            color: #b0b0ff;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+        
+        .question-container {
+            background: rgba(16, 18, 27, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .question-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .question-number {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        .question-progress {
+            color: #00ffff;
+            font-size: 16px;
+            background: rgba(0, 20, 40, 0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        .question-text {
+            font-size: 22px;
+            margin-bottom: 30px;
+            color: #ffffff;
+            line-height: 1.5;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 20px;
+            background: rgba(30, 35, 50, 0.7);
+            border: 2px solid rgba(100, 100, 255, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .option:hover::before {
+            left: 100%;
+        }
+        
+        .option:hover {
+            background: rgba(40, 45, 60, 0.9);
+            border-color: rgba(0, 255, 255, 0.5);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+        
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .option-text {
+            flex: 1;
+            color: #d0d0ff;
+        }
+        
+        .option.correct {
+            background: rgba(0, 100, 0, 0.3);
+            border-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        
+        .option.incorrect {
+            background: rgba(100, 0, 0, 0.3);
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        
+        .option.selected {
+            background: rgba(0, 100, 150, 0.3);
+            border-color: #00ffff;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+        }
+        
+        .feedback {
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 25px;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.5s;
+            border-left: 5px solid;
+        }
+        
+        .correct-feedback {
+            background: rgba(0, 100, 0, 0.2);
+            color: #00ff00;
+            border-left-color: #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+        
+        .incorrect-feedback {
+            background: rgba(100, 0, 0, 0.2);
+            color: #ff5555;
+            border-left-color: #ff5555;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 18px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        #next-btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: #000;
+            flex: 1;
+        }
+        
+        #next-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.4);
+        }
+        
+        #next-btn:disabled {
+            background: #444;
+            color: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        #hint-btn {
+            background: rgba(255, 0, 255, 0.2);
+            color: #ff00ff;
+            border: 1px solid rgba(255, 0, 255, 0.5);
+        }
+        
+        #hint-btn:hover {
+            background: rgba(255, 0, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: rgba(30, 35, 50, 0.7);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .audio-btn {
+            padding: 12px 25px;
+            background: rgba(16, 18, 27, 0.7);
+            color: #00ffff;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .audio-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+        
+        .result-container {
+            background: rgba(16, 18, 27, 0.9);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: none;
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .result-title {
+            color: #00ffff;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        
+        .score-display {
+            font-size: 80px;
+            font-weight: bold;
+            margin: 30px 0;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+        
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        
+        .circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 10;
+        }
+        
+        .circle-progress {
+            fill: none;
+            stroke: url(#gradient);
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-dasharray: 565;
+            stroke-dashoffset: 565;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+        
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ffff;
+        }
+        
+        #restart-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #000;
+            margin: 30px auto 0;
+            padding: 20px 50px;
+            font-size: 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #restart-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 0, 255, 0.4);
+        }
+        
+        .hint-container {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .hint-title {
+            color: #ffd700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hint-content {
+            color: #ffeda0;
+            line-height: 1.6;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            .question-text {
+                font-size: 20px;
+            }
+            
+            .option {
+                padding: 15px;
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 15px 25px;
+                font-size: 16px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .score-display {
+                font-size: 60px;
+            }
+        }
+        
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Шұғаның белгісі</h1>
+            <p class="subtitle">Қазақ әдебиетінің классикалық туындысы бойынша интерактивті тест</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-questions">15</div>
+                    <div class="stat-label">Сұрақтар</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="current-score">0</div>
+                    <div class="stat-label">Ұпай</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="time-spent">00:00</div>
+                    <div class="stat-label">Уақыт</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="instructions">
+            <h2>Нұсқаулар</h2>
+            <p>"Шұғаның белгісі" әңгімесінің негізгі оқиғалары мен кейіпкерлері туралы біліміңізді тексеріңіз. Әр сұраққа тек бір жауап таңдаңыз. Дұрыс жауап берсеңіз жасыл түс және рахатты дыбыс, қателессеңіз қызыл түс және ескерту дыбысы шығады.</p>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div id="question-container">
+            <!-- Сұрақтар осы жерде динамикалық түрде пайда болады -->
+        </div>
+        
+        <div id="hint-container" class="hint-container">
+            <h3 class="hint-title">💡 Көмек</h3>
+            <p class="hint-content" id="hint-text"></p>
+        </div>
+        
+        <div class="controls">
+            <button id="hint-btn" class="btn" onclick="showHint()">
+                <span>💡</span> Көмек алу
+            </button>
+            <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>
+                <span>⏭️</span> Келесі сұрақ
+            </button>
+        </div>
+        
+        <div class="audio-controls">
+            <button class="audio-btn" onclick="playCorrectSound()">
+                <span>✅</span> Дұрыс дыбыс
+            </button>
+            <button class="audio-btn" onclick="playIncorrectSound()">
+                <span>❌</span> Қате дыбыс
+            </button>
+            <button class="audio-btn" onclick="toggleSound()">
+                <span>🔇</span> Дыбысты өшіру
+            </button>
+        </div>
+        
+        <div id="result-container" class="result-container">
+            <h2 class="result-title">Тест нәтижесі</h2>
+            
+            <div class="score-circle">
+                <svg width="200" height="200">
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00ffff" />
+                            <stop offset="100%" stop-color="#ff00ff" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="circle-bg" cx="100" cy="100" r="90"/>
+                    <circle class="circle-progress" cx="100" cy="100" r="90" id="circle-progress"/>
+                </svg>
+                <div class="score-text" id="circle-score">0%</div>
+            </div>
+            
+            <div class="score-display" id="final-score">0%</div>
+            
+            <p><strong><span id="correct-count">0</span> дұрыс жауап</strong> <span id="total-count">15</span> сұрақтан</p>
+            
+            <p id="result-message" style="margin: 20px 0; color: #a0a0ff; font-size: 18px;"></p>
+            
+            <button id="restart-btn" class="btn" onclick="restartQuiz()">
+                <span>🔄</span> Тестті қайта бастау
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Тест сұрақтары (15 сұрақ)
+        var questions = [
+            {
+                question: "Әбдірахман мен Шұға қай жерде алғаш кездескен?",
+                options: [
+                    "Алтыбақан мерекесінде",
+                    "Есімбектің үйінде",
+                    "Қызойнақ ойынында",
+                    "Дуанда"
+                ],
+                correct: 0,
+                explanation: "Әбдірахман мен Шұға алғаш рет алтыбақан мерекесінде кездескен.",
+                hint: "Бұл жастар жиналып, ән-билеген дәстүрлі мереке"
+            },
+            {
+                question: "Әбдірахман қандай білім алған?",
+                options: [
+                    "Діни білім",
+                    "Орыс мектебінде білім",
+                    "Дәстүрлі медресе білімі",
+                    "Өздігінен оқыған"
+                ],
+                correct: 1,
+                explanation: "Әбдірахман орысша білім алған, ауылнай учительден оқыған.",
+                hint: "Ол заманауи білім алған жастардың бірі"
+            },
+            {
+                question: "Шұғаның әкесі Есімбек қандай адам болған?",
+                options: [
+                    "Кедей шаруа",
+                    "Бай және беделді адам",
+                    "Діни қайраткер",
+                    "Ауыл басшысы"
+                ],
+                correct: 1,
+                explanation: "Шұғаның әкесі Есімбек бай және беделді адам болған.",
+                hint: "Оның аты ауылда құрметпен айтылатын"
+            },
+            {
+                question: "Әбдірахманның Шұғаға алғаш хат жазған себебі не болды?",
+                options: [
+                    "Құда түсу",
+                    "Махаббатты білдіру",
+                    "Көмек сұрау",
+                    "Кездесуге шақыру"
+                ],
+                correct: 1,
+                explanation: "Әбдірахман Шұғаға махаббатын білдіру үшін хат жазған.",
+                hint: "Жас жүректердің бір-біріне деген сезімі"
+            },
+            {
+                question: "Шұғаның қайтыс болу себебі не болды?",
+                options: [
+                    "Ауыр ауру",
+                    "Жарақат",
+                    "Қайғы-қасірет",
+                    "Жазылмаған науқас"
+                ],
+                correct: 2,
+                explanation: "Шұға сүйген адамынан айырылғаннан кейін қайғы-қасіреттен қайтыс болды.",
+                hint: "Ол махаббат үшін өмірін қиған"
+            },
+            {
+                question: "Әбдірахман қандай қызмет атқарған?",
+                options: [
+                    "Болыстың көмекшісі",
+                    "Мектеп мұғалімі",
+                    "Дуан қызметкері",
+                    "Байдың қарауылшысы"
+                ],
+                correct: 1,
+                explanation: "Әбдірахман мектепте мұғалім болып жұмыс істеген.",
+                hint: "Ол жастарды оқытумен айналысқан"
+            },
+            {
+                question: "Шұға қайда жерленген?",
+                options: [
+                    "Ата-баба қорымда",
+                    "Өгіз сойған деген жерде",
+                    "Ауыл маңындағы қорымда",
+                    "Қасиетті жерде"
+                ],
+                correct: 1,
+                explanation: "Шұға 'Өгіз сойған' деген жердің басына жерленген.",
+                hint: "Бұл жер кейін 'Шұғаның белгісі' деп аталды"
+            },
+            {
+                question: "Әбдірахман мен Шұғаның махаббатына кімдер қарсы шықты?",
+                options: [
+                    "Тек Есімбек",
+                    "Тек Айнабай",
+                    "Есімбек, Айнабай және ауыл ақсақалдары",
+                    "Ешкім"
+                ],
+                correct: 2,
+                explanation: "Есімбек, Айнабай және ауыл ақсақалдары Әбдірахман мен Шұғаның махаббатына қарсы болды.",
+                hint: "Қоғамның консервативті көзқарастары"
+            },
+            {
+                question: "Әбдірахманның Шұғаға жазған өлеңдерінде не туралы айтылған?",
+                options: [
+                    "Табиғат туралы",
+                    "Махаббат туралы",
+                    "Қоғам туралы",
+                    "Дін туралы"
+                ],
+                correct: 1,
+                explanation: "Әбдірахманның өлеңдерінде негізінен махаббат тақырыбы басым болған.",
+                hint: "Оның шығармалары сүйіспеншілік лирикасы"
+            },
+            {
+                question: "Есімбек қызы Шұғаны неге бергісі келмеді?",
+                options: [
+                    "Әбдірахман оқыған адам болғандықтан",
+                    "Әбдірахман кедей болғандықтан",
+                    "Әбдірахман жасы кіші болғандықтан",
+                    "Әбдірахман басқа ауылдың баласы болғандықтан"
+                ],
+                correct: 1,
+                explanation: "Есімбек Әбдірахманның кедей болғандықтан қызын бергісі келмеді.",
+                hint: "Заманның әлеуметтік теңсіздік проблемасы"
+            },
+            {
+                question: "Шұғаның жеңгесінің аты қандай?",
+                options: [
+                    "Зәйкүл",
+                    "Маржанбике",
+                    "Күлзаппа",
+                    "Айнабай"
+                ],
+                correct: 0,
+                explanation: "Шұғаның жеңгесінің аты Зәйкүл болған.",
+                hint: "Ол екеуінің арасындағы хабаршы болды"
+            },
+            {
+                question: "Әбдірахман қайсы кітапты оқып үйренген?",
+                options: [
+                    "Тек Құран ғана",
+                    "Орыс әдебиеті мен ғылымы",
+                    "Тек діни кітаптар",
+                    "Қазақтың дәстүрлі кітаптары"
+                ],
+                correct: 1,
+                explanation: "Әбдірахман орыс әдебиеті мен ғылымын оқып үйренген.",
+                hint: "Ол жаңа білімді өз қоғамына таныстырғысы келген"
+            },
+            {
+                question: "Айнабай кім болған?",
+                options: [
+                    "Әбдірахманның досы",
+                    "Шұғаның ағасы",
+                    "Есімбектің жақын туысы",
+                    "Әбдірахманға қарсы шыққан адам"
+                ],
+                correct: 3,
+                explanation: "Айнабай Әбдірахманға қарсы шыққан, оны сынап, айыптаған адам болған.",
+                hint: "Ол қызын Әбдірахманға бергісі келген бірақ бас тартылған"
+            },
+            {
+                question: "Шұғаның қайтыс болғаннан кейін Әбдірахман қалай әрекет етті?",
+                options: [
+                    "Ауылды тастап кетті",
+                    "Жаңа өмір бастады",
+                    "Қайғысын өлеңдерге арнады",
+                    "Ешнәрсе істемеді"
+                ],
+                correct: 2,
+                explanation: "Шұға қайтыс болғаннан кейін Әбдірахман қайғысын өлеңдерге арнап, оның естелігін өшірмеді.",
+                hint: "Оның шығармашылығы махаббат және қайғы тақырыбында жалғасты"
+            },
+            {
+                question: "'Шұғаның белгісі' деген не?",
+                options: [
+                    "Шұғаның қабірі",
+                    "Шұғаның суреті",
+                    "Шұғаның естелігіне орнатылған белгі",
+                    "Шұғаның үйі"
+                ],
+                correct: 2,
+                explanation: "'Шұғаның белгісі' - бұл Шұғаның естелігіне орнатылған белгі, оның қабірінің үстіне қойылған.",
+                hint: "Бұл жер кейін атақты болып, аңызға айналды"
+            }
+        ];
+        
+        // Айнымалылар
+        var currentQuestionIndex = 0;
+        var score = 0;
+        var userAnswers = [];
+        var quizCompleted = false;
+        var startTime = new Date();
+        var soundEnabled = true;
+        
+        // HTML элементтерін табу
+        var questionContainer = document.getElementById('question-container');
+        var nextButton = document.getElementById('next-btn');
+        var hintButton = document.getElementById('hint-btn');
+        var resultContainer = document.getElementById('result-container');
+        var progressBar = document.getElementById('progress-bar');
+        var hintContainer = document.getElementById('hint-container');
+        var hintText = document.getElementById('hint-text');
+        var currentScoreElement = document.getElementById('current-score');
+        var totalQuestionsElement = document.getElementById('total-questions');
+        
+        // Аудио дыбыстарын жасау
+        function createAudioContext() {
+            try {
+                return new (window.AudioContext || window.webkitAudioContext)();
+            } catch (e) {
+                console.log("Аудио контексті қолдамайды");
+                return null;
+            }
+        }
+        
+        // Дыбысты ойнату функциясы
+        function playSound(frequency, duration, type) {
+            if (!soundEnabled) return;
+            
+            var audioContext = createAudioContext();
+            if (!audioContext) return;
+            
+            var oscillator = audioContext.createOscillator();
+            var gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.type = type || 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+        
+        // Дұрыс жауап дыбысы
+        function playCorrectSound() {
+            playSound(800, 0.5, 'sine');
+            playSound(1200, 0.5, 'sine');
+        }
+        
+        // Қате жауап дыбысы
+        function playIncorrectSound() {
+            playSound(300, 0.8, 'sawtooth');
+            playSound(200, 0.8, 'sawtooth');
+        }
+        
+        // Дыбысты өшіру/қосу
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            var btn = document.querySelector('.audio-btn:nth-child(3) span');
+            btn.textContent = soundEnabled ? '🔇' : '🔈';
+            alert(soundEnabled ? 'Дыбыс қосылды' : 'Дыбыс өшірілді');
+        }
+        
+        // Уақытты есептеу
+        function updateTime() {
+            var currentTime = new Date();
+            var timeDiff = Math.floor((currentTime - startTime) / 1000);
+            var minutes = Math.floor(timeDiff / 60);
+            var seconds = timeDiff % 60;
+            
+            document.getElementById('time-spent').textContent = 
+                (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        }
+        
+        // Тестті бастау
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+            startTime = new Date();
+            
+            resultContainer.style.display = 'none';
+            questionContainer.innerHTML = '';
+            nextButton.disabled = true;
+            hintContainer.style.display = 'none';
+            currentScoreElement.textContent = '0';
+            totalQuestionsElement.textContent = questions.length;
+            
+            showQuestion();
+            updateProgressBar();
+            
+            // Уақытты жаңарту интервалы
+            setInterval(updateTime, 1000);
+        }
+        
+        // Сұрақты көрсету
+        function showQuestion() {
+            var question = questions[currentQuestionIndex];
+            
+            var questionHTML = `
+                <div class="question-container">
+                    <div class="question-header">
+                        <div class="question-number">${currentQuestionIndex + 1}</div>
+                        <div class="question-progress">${currentQuestionIndex + 1} / ${questions.length}</div>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container">
+            `;
+            
+            var letters = ['А', 'Б', 'В', 'Г'];
+            
+            for (var i = 0; i < question.options.length; i++) {
+                questionHTML += `
+                    <div class="option" onclick="selectOption(${i})" id="option-${i}">
+                        <div class="option-letter">${letters[i]}</div>
+                        <div class="option-text">${question.options[i]}</div>
+                    </div>
+                `;
+            }
+            
+            questionHTML += `
+                    </div>
+                    <div class="feedback" id="feedback"></div>
+                </div>
+            `;
+            
+            questionContainer.innerHTML = questionHTML;
+            hintContainer.style.display = 'none';
+            
+            // Егер бұрын жауап берілген болса, оны көрсету
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                selectOption(userAnswers[currentQuestionIndex], true);
+            }
+        }
+        
+        // Көмек көрсету
+        function showHint() {
+            var question = questions[currentQuestionIndex];
+            hintText.textContent = question.hint;
+            hintContainer.style.display = 'block';
+        }
+        
+        // Жауап таңдау
+        function selectOption(optionIndex, fromHistory) {
+            if (quizCompleted) return;
+            
+            var question = questions[currentQuestionIndex];
+            var options = document.querySelectorAll('.option');
+            var feedback = document.getElementById('feedback');
+            
+            // Барлық нұсқалардан таңдалған белгісін алып тастау
+            for (var i = 0; i < options.length; i++) {
+                options[i].classList.remove('selected', 'correct', 'incorrect');
+            }
+            
+            // Таңдалған нұсқаны белгілеу
+            var selectedOption = document.getElementById('option-' + optionIndex);
+            selectedOption.classList.add('selected');
+            
+            // Жауапты сақтау
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Егер тарихтан жүктелмесе, тексеру
+            if (!fromHistory) {
+                // Дұрыс жауапты көрсету
+                var correctOption = document.getElementById('option-' + question.correct);
+                correctOption.classList.add('correct');
+                
+                // Егер қате жауап таңдалса
+                if (optionIndex !== question.correct) {
+                    selectedOption.classList.add('incorrect');
+                    feedback.textContent = "Қате! " + question.explanation;
+                    feedback.className = "feedback incorrect-feedback";
+                    feedback.style.display = 'block';
+                    
+                    // Қате дыбыс
+                    playIncorrectSound();
+                } else {
+                    // Дұрыс жауап
+                    feedback.textContent = "Дұрыс! " + question.explanation;
+                    feedback.className = "feedback correct-feedback";
+                    feedback.style.display = 'block';
+                    score++;
+                    currentScoreElement.textContent = score;
+                    
+                    // Дұрыс дыбыс
+                    playCorrectSound();
+                }
+                
+                // Келесі батырманы қосу
+                nextButton.disabled = false;
+                
+                // Барлық нұсқаларды өзгертуді болдырмау
+                for (var i = 0; i < options.length; i++) {
+                    options[i].style.pointerEvents = 'none';
+                }
+            } else {
+                // Тарихтан жүктегенде, келесі батырманы қосу
+                nextButton.disabled = false;
+            }
+        }
+        
+        // Прогресс жолағын жаңарту
+        function updateProgressBar() {
+            var progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBar.style.width = progress + '%';
+        }
+        
+        // Келесі сұраққа өту
+        function nextQuestion() {
+            // Егер соңғы сұрақ болса, нәтижені көрсету
+            if (currentQuestionIndex === questions.length - 1) {
+                showResult();
+                return;
+            }
+            
+            // Келесі сұраққа өту
+            currentQuestionIndex++;
+            showQuestion();
+            nextButton.disabled = true;
+            updateProgressBar();
+        }
+        
+        // Нәтижені көрсету
+        function showResult() {
+            quizCompleted = true;
+            
+            questionContainer.style.display = 'none';
+            nextButton.style.display = 'none';
+            hintButton.style.display = 'none';
+            resultContainer.style.display = 'block';
+            
+            var percentage = Math.round((score / questions.length) * 100);
+            
+            // Дөңгелек диаграмманы жаңарту
+            var circleProgress = document.getElementById('circle-progress');
+            var circleLength = 565; // 2 * π * r (r = 90)
+            var offset = circleLength - (circleLength * percentage / 100);
+            circleProgress.style.strokeDashoffset = offset;
+            
+            document.getElementById('circle-score').textContent = percentage + '%';
+            document.getElementById('final-score').textContent = percentage + '%';
+            document.getElementById('correct-count').textContent = score;
+            document.getElementById('total-count').textContent = questions.length;
+            
+            var message = "";
+            if (percentage === 100) {
+                message = "Керемет! Сіз әңгімені жәтқансыз білесіз! Шұға мен Әбдірахманның тағдыры сізге жақсы таныс.";
+            } else if (percentage >= 80) {
+                message = "Өте жақсы! Сіз әңгіменің негізгі оқиғаларын жақсы білесіз.";
+            } else if (percentage >= 60) {
+                message = "Жақсы! Бірақ әңгімені қайта оқып шыққан жөн.";
+            } else if (percentage >= 40) {
+                message = "Орташа. 'Шұғаның белгісі' әңгімесін мұқият оқып көріңіз.";
+            } else {
+                message = "Өкінішке орай, сіз әңгімені нашар білесіз. Қазақ әдебиетінің бұл туындысын міндетті түрде оқып шығыңыз.";
+            }
+            
+            document.getElementById('result-message').textContent = message;
+            
+            // Жеңіс дыбысы
+            if (percentage >= 60) {
+                playCorrectSound();
+            }
+        }
+        
+        // Тестті қайта бастау
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            quizCompleted = false;
+            startTime = new Date();
+            
+            questionContainer.style.display = 'block';
+            nextButton.style.display = 'block';
+            hintButton.style.display = 'block';
+            resultContainer.style.display = 'none';
+            nextButton.disabled = true;
+            
+            currentScoreElement.textContent = '0';
+            
+            showQuestion();
+            updateProgressBar();
+        }
+        
+        // Тестті автоматты түрде бастау
+        window.onload = function() {
+            startQuiz();
+        };
+    </script>
+</body>
+</html>
